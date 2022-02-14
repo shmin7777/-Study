@@ -46,7 +46,7 @@ end
 ## 가상 머신에 추가 패키지 설치하기
 필요한 내용이 설정된 Vagrantfile을 통해 CentOS에 호스트네임, IP 등을 자동으로 설정해 보았다.  
 이번에는 CentOS에 필요한 패키지를 설치하는 방법을 알아보자.  
-
+![image](https://user-images.githubusercontent.com/67637716/153905871-9c9873c6-38ab-4861-b095-6618b3339789.png)
 
 
 
