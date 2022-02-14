@@ -19,7 +19,7 @@ Vagrantfile을 수정해 원하는 구성이 자동으로 CentOS에 입력되도
 
 
 Vagrant.configure("2") do |config| # "2"는 베어그런트에서 루비로 코드를 읽어 들여 실행할 때 작동하는API버전
-  cfg.vm.define "m-k8s" do |cfg| # 가상 머신을  "m-k8s"로 정의, 원하는 설정으로 변경
+  config.vm.define "m-k8s" do |cfg| # 가상 머신을  "m-k8s"로 정의, 원하는 설정으로 변경
     cfg.vm.box = "sysnet4admin/CentOS-k8s" 
     cfg.vm.provider "virtualbox" do |vb| # 베어그런트의 프로바이더(provider)가 VirtualBox정의
       vb.name = "m-k8s(github_SysNet4Admin)" # 가상 머신의 이름
@@ -28,12 +28,28 @@ Vagrant.configure("2") do |config| # "2"는 베어그런트에서 루비로 코�
       vb.customize ["modifyvm", :id, "--groups", "/k8s-SM(github_SysNet4Admin)"] # 소속된 그룹 명시
     end
     cfg.vm.host_name = "m-k8s" # 가상 머신 자체에 대한 설정 시작, 호스트 이름 설정
-    cfg.vm.network "private_network" ip: "192.168.1.10" # eth1 인터페이스를 호스트 전용으로 구성
+    cfg.vm.network "private_network", ip: "192.168.1.10" # eth1 인터페이스를 호스트 전용으로 구성
     cfg.vm.network "forwarded_port", guest: 22, host: 60010, auto_correct: true, id: "ssh" 
-    cfg.vm.sysnced_folder "../data", "vagrant", disabled: true # 호스트(PC)와 게스트(가상 머신)사이에 디렉터리 동기화가 이뤄지지 않게 설정.
+    cfg.vm.synced_folder "../data", "/vagrant", disabled: true # 호스트(PC)와 게스트(가상 머신)사이에 디렉터리 동기화가 이뤄지지 않게 설정.
     end
 end
 
 ```
+
+#### 코드 실행
+1. vagrant up
+1. vagrant ssh
+1. ip addr show eth1 명령을 입력해 IP(192.168.1.10)가 제대로 설정됐는지 확인
+1. exit 명령을 실행해 CentOS 접속 종료
+
+
+## 가상 머신에 추가 패키지 설치하기
+필요한 내용이 설정된 Vagrantfile을 통해 CentOS에 호스트네임, IP 등을 자동으로 설정해 보았다.  
+이번에는 CentOS에 필요한 패키지를 설치하는 방법을 알아보자.  
+
+
+
+
+
 
 
